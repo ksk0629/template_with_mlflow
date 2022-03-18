@@ -114,11 +114,12 @@ if __name__ == "__main__":
     parser.add_argument("experiment_name", type=str, default="mnist with cnn")
     parser.add_argument("run_name", type=str, default=None)
     parser.add_argument("seed", type=int, default=57)
+    parser.add_argument("n_hidden", type=int, default=100)
+    parser.add_argument("n_features", type=int, default=784)
     parser.add_argument("validation_size", type=float, default=0.2)
     parser.add_argument("epochs", type=int, default=1000)
     parser.add_argument("batch_size", type=int, default=8)
-    parser.add_argument("n_features", type=int, default=784)
-    parser.add_argument("n_hidden", type=int, default=100)
+    
     parser.add_argument("learning_rate", type=float, default=0.01)
 
     args = parser.parse_args()
