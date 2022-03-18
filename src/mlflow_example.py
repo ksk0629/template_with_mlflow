@@ -42,6 +42,11 @@ def load_scaled_mnist(validation_size: float) -> Tuple[List[np.ndarray], List[np
     scaled_train_data = scaled_all_data[:len(train_data)]
     scaled_validation_data = scaled_all_data[len(train_data):len(train_data)+len(validation_data)]
     scaled_test_data = scaled_all_data[len(train_data)+len(validation_data):]
+    
+    # Check the lengths of data
+    assert len(train_data) == len(scaled_train_data), "The length of train_data is not same as one of scaled_train_data."
+    assert len(validation_data) == len(scaled_validation_data), "The length of validation_data is not same as one of scaled_validation_data."
+    assert len(test_data) == len(scaled_test_data), "The length of test_data is not same as one of scaled_test_data."
 
     # Make list whose length two, the first one is data and another is label
     train_dataset = [scaled_train_data, train_labels]
