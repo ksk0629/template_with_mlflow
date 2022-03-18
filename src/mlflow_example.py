@@ -34,14 +34,18 @@ def load_scaled_mnist(validation_size: float) -> Tuple[List[np.ndarray], List[np
     train_data = train_data.reshape(-1, FLATTENED_SIZE)
     validation_data = validation_data.reshape(-1, FLATTENED_SIZE)
     test_data = test_data.reshape(-1, FLATTENED_SIZE)
+    all_data = np.concatenate([train_data, validation_data, test_data])
 
     # Scale those data
     scaler = MinMaxScaler(feature_range=(0, 1))
-    scaled_train_data, sclaed_validation_data, scaled_test_data = scaler.fit_transform([train_data, validation_data, test_data])
+    scaled_all_data = scaler.fit_transform(all_data)
+    scaled_train_data = scaled_all_data[:len(train_data)]
+    scaled_validation_data = scaled_all_data[len(train_data):len(train_data)+len(validation_data)]
+    scaled_test_data = scaled_all_data[len(train_data)+len(validation_data):]
 
     # Make list whose length two, the first one is data and another is label
     train_dataset = [scaled_train_data, train_labels]
-    validation_dataset = [sclaed_validation_data, validation_labels]
+    validation_dataset = [scaled_validation_data, validation_labels]
     test_dataset = [scaled_test_data, test_labels]
 
     return train_dataset, validation_dataset, test_dataset
